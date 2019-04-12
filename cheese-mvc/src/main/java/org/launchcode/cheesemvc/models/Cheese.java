@@ -2,22 +2,31 @@ package org.launchcode.cheesemvc.models;
 
 public class Cheese {
 
-    private int id;
+
     private String cheeseName;
     private String cheeseSize;
-    private static int nextId = 0;
+    private int cheeseId;
+    private static int nextId=1;
 
 
     public Cheese(String cheeseName, String cheeseSize) {
-        this.id = nextId;
+        this();
         this.cheeseName = cheeseName;
         this.cheeseSize = cheeseSize;
+
+    }
+    public Cheese() { //no arg constructor
+        cheeseId = nextId;
         nextId++;
 
     }
 
-    public int getId() {
-        return id;
+    public int getCheeseId() {
+        return cheeseId;
+    }
+
+    public void setCheeseId(int cheeseId) {
+        this.cheeseId = cheeseId;
     }
 
     public String getCheeseName() {
