@@ -7,11 +7,13 @@ import org.launchcode.cheesemvc.models.Cheese;
 import org.launchcode.cheesemvc.models.CheeseData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @Controller
@@ -35,17 +37,18 @@ public class CheeseController {
     public String displayAddCheeseForm(Model model) {
 
         model.addAttribute("title", "Add Cheese");
+        model.addAttribute(new Cheese());
         return "cheese/add";
     }
     //Request path cheese/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute Cheese newCheese) {
-        //cheeses.add(cheeseName); cheeses.add(cheeseSize);
+    public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese, Errors errors, Model model) {
+
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Add Cheese");
+            return "cheese/add";
+        }
         CheeseData.add(newCheese);
-        //cheeses.put("Cheddar", Small);
-        // cheeses.put("Munster", Small);
-        //cheeses.put("Gouda", Large);
-        //cheeses.put("Goat", Medium;
         return "redirect:";
     }
         // Request path cheese/remove

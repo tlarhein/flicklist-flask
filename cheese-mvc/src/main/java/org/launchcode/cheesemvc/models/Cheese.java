@@ -1,9 +1,16 @@
 package org.launchcode.cheesemvc.models;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Cheese {
 
-
+    @NotNull
+    @Size(min=3, max=15, message = "Cheese Name must be between 3 and 15 characters")
     private String cheeseName;
+
+    @NotNull
+    @Size (min=1, message = "Description field must not be empty")
     private String cheeseSize;
     private int cheeseId;
     private static int nextId=1;
