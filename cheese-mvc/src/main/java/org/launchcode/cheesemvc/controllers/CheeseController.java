@@ -5,6 +5,7 @@ package org.launchcode.cheesemvc.controllers;
 
 import org.launchcode.cheesemvc.models.Cheese;
 import org.launchcode.cheesemvc.models.CheeseData;
+import org.launchcode.cheesemvc.models.CheeseType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,8 +22,6 @@ import java.util.ArrayList;
 public class CheeseController {
 
 
-    //HashMap<String, String>cheeses = new HashMap<>();
-
     //Request path /cheese
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -35,14 +34,15 @@ public class CheeseController {
     // Request Path Cheese/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddCheeseForm(Model model) {
-
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
+        model.addAttribute("cheeseTypes", CheeseType.values());
         return "cheese/add";
     }
     //Request path cheese/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese, Errors errors, Model model) {
+    public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese,
+                                       Errors errors, Model model) {
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Cheese");
@@ -66,8 +66,7 @@ public class CheeseController {
             for (int cheeseId : cheeseIds) {
                 CheeseData.remove(cheeseId);
 
-                    }
-
+            }
 
             // Redirect to cheese/
             return "redirect:";

@@ -12,8 +12,11 @@ public class Cheese {
     @NotNull
     @Size (min=1, message = "Description field must not be empty")
     private String cheeseSize;
+
+    private CheeseType type;
+
     private int cheeseId;
-    private static int nextId=1;
+    private static int nextId = 1;
 
 
     public Cheese(String cheeseName, String cheeseSize) {
@@ -50,5 +53,13 @@ public class Cheese {
 
     public void setCheeseSize(String cheeseSize) {
         this.cheeseSize = cheeseSize;
+    }
+
+    public CheeseType getType() {
+        return type;
+    }
+
+    public void setType(CheeseType type) {
+        this.type = type;
     }
 }
