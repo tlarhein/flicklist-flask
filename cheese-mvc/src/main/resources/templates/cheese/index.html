@@ -15,7 +15,7 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>Type</th>
+            <th>Category</th>
         </tr>
 
 
@@ -23,10 +23,15 @@
         <tr th:each="cheese : ${cheeses}">
             <td th:text="${cheese.cheeseName}"></td>
             <td th:text="${cheese.cheeseSize}"></td>
-            <td th:text="${cheese.type.name}"></td>
+            <td th:text="${cheese.category.name}"></td>
         </tr>
 
     </table>
+
+    <nav>
+        <a href="/cheese/add">Add</a> |
+        <a href="/cheese/remove">Remove</a>
+    </nav>
 
 </body>
 </html>

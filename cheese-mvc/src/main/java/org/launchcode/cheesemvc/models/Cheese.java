@@ -1,9 +1,20 @@
 package org.launchcode.cheesemvc.models;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
+/**
+ * Created by LaunchCode
+ */
+
+@Entity
 public class Cheese {
+
+    @Id //serves as the primary key
+    @GeneratedValue  //tells hibernate to generate the value for us
+    private int id;
 
     @NotNull
     @Size(min=3, max=15, message = "Cheese Name must be between 3 and 15 characters")
@@ -13,30 +24,21 @@ public class Cheese {
     @Size (min=1, message = "Description field must not be empty")
     private String cheeseSize;
 
-    private CheeseType type;
+    @ManyToOne
+    private Category category;
 
-    private int cheeseId;
-    private static int nextId = 1;
-
+    @ManyToMany(mappedBy = "cheeses")
+    private List<Menu> menus;
 
     public Cheese(String cheeseName, String cheeseSize) {
-        this();
         this.cheeseName = cheeseName;
         this.cheeseSize = cheeseSize;
 
     }
-    public Cheese() { //no arg constructor
-        cheeseId = nextId;
-        nextId++;
+    public Cheese() {}
 
-    }
-
-    public int getCheeseId() {
-        return cheeseId;
-    }
-
-    public void setCheeseId(int cheeseId) {
-        this.cheeseId = cheeseId;
+    public int getId() {
+        return id;
     }
 
     public String getCheeseName() {
@@ -55,11 +57,10 @@ public class Cheese {
         this.cheeseSize = cheeseSize;
     }
 
-    public CheeseType getType() {
-        return type;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setType(CheeseType type) {
-        this.type = type;
-    }
-}
+    public void setCategory(Category category) {
+        this.category = category;
+}}
