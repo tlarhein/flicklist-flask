@@ -4,34 +4,34 @@
 <head th:replace="fragments :: head"></head>
 
 <body class="container body-content">
-    <h1 th:text="${title}">Default Title</h1>
+<h1 th:text="${title}">Default Title</h1>
 
-    <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigation"></nav>
 
-    <p th:unless="${cheeses} and ${cheeses.size()}"> No Cheese :(</p>
+<p th:unless="${cheeses} and ${cheeses.size()}"> No Cheese :(</p>
 
-    <table class="table">
+<table class="table">
 
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Category</th>
-        </tr>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+    </tr>
 
 
 
-        <tr th:each="cheese : ${cheeses}">
-            <td th:text="${cheese.cheeseName}"></td>
-            <td th:text="${cheese.cheeseSize}"></td>
-            <td th:text="${cheese.category.name}"></td>
-        </tr>
+    <tr th:each="cheese : ${cheeses}">
+        <td th:text="${cheese.cheeseName}"></td>
+        <td th:text="${cheese.cheeseSize}"></td>
+        <td th:text="${cheese.category.name}"></td>
+    </tr>
 
-    </table>
+</table>
 
-    <nav>
-        <a href="/cheese/add">Add</a> |
-        <a href="/cheese/remove">Remove</a>
-    </nav>
+<nav>
+     <a href="/cheese/add">Add</a> |
+     <a href="/cheese/remove">Remove</a>
+</nav>
 
 </body>
 </html>

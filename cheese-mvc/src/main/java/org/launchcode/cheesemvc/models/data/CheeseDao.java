@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 
 /**
- * Created by Launchcode
+ * Created by Launchcode, assignment by Tracey Cannon 0419
  */
 
 @Repository

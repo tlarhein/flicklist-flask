@@ -31,6 +31,7 @@ public class Menu {
 
     public Menu(String name){
         this.name = name;
+
     }
 
     public int getId() {
@@ -39,10 +40,12 @@ public class Menu {
 
     public String getName() {
         return name;
+
     }
 
     public void setName(String name) {
         this.name = name;
+
     }
 
     public List<Cheese> getCheeses() {

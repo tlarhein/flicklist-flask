@@ -42,14 +42,17 @@ public class Cheese {
     }
 
     public String getCheeseName() {
+
         return cheeseName;
     }
 
-    public void setCheeseName(String cheeseName) {
+    public void setCheeseName(String cheeseName)
+    {
         this.cheeseName = cheeseName;
     }
 
     public String getCheeseSize() {
+
         return cheeseSize;
     }
 

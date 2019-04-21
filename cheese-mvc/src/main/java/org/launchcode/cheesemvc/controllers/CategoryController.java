@@ -2,9 +2,7 @@ package org.launchcode.cheesemvc.controllers;
 
 
 import org.launchcode.cheesemvc.models.Category;
-import org.launchcode.cheesemvc.models.Cheese;
 import org.launchcode.cheesemvc.models.data.CategoryDao;
-import org.launchcode.cheesemvc.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 /**
- * Created by LaunchCode
+ * Created by LaunchCode, persistent assignment by Tracey Cannon
  */
 
 @Controller
@@ -26,7 +24,7 @@ public class CategoryController {
     @Autowired
     private CategoryDao categoryDao;
 
-    @RequestMapping("")
+    @RequestMapping(value="")
     public String index(Model model) {
 
         model.addAttribute("categories", categoryDao.findAll());
@@ -35,8 +33,8 @@ public class CategoryController {
         return "category/index";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String displayAddForm(Model model) {
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public String add(Model model) {
 
         model.addAttribute(new Category());
         model.addAttribute("title", "Add Category");
@@ -44,8 +42,8 @@ public class CategoryController {
         return "category/add";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String displayAddForm(Model model, @ModelAttribute @Valid Category
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String add(Model model, @ModelAttribute @Valid Category
             category, Errors errors) {
 
         if (errors.hasErrors()) {
@@ -53,7 +51,7 @@ public class CategoryController {
             return "category/add";
         }
 
-        categoryDao.save(category);
+            categoryDao.save(category);
         return "redirect:";
     }
 
