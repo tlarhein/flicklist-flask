@@ -7,7 +7,7 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${menus} and ${menus.size()}">No menus items yet</p>
+<p th:unless="${menus} and ${menus.size()}">No menus yet</p>
 
 <ul>
     <li th:each="menu : ${menus}">

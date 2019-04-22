@@ -4,18 +4,20 @@
 <head th:replace="fragments :: head">
 </head>
 
-<body>
-
-<h1 th:text="${menu.name}">Default Title</h1>
+<body class="container">
 
 
-<p th:unless="${menu} and ${menu.cheeses.size()}">No items. :(</p>
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${menu} and ${menu.cheeses.size()}">No items on this menu yet</p>
 
 
 <ul>
     <li th:each="cheese : ${menu.cheeses}" th:text="${cheese.cheeseName}"></li>
 </ul>
-<p><a th:href="'/menu/add-item/'+${menu.id}">Add Cheese</a></p>
+<p><a th:href="'/menu/add-item/' + ${menu.id}">Add Cheese</a></p>
 
 
 

@@ -27,8 +27,8 @@ public class CategoryController {
     @RequestMapping(value="")
     public String index(Model model) {
 
-        model.addAttribute("categories", categoryDao.findAll());
         model.addAttribute("title", "Categories");
+        model.addAttribute("categories", categoryDao.findAll());
 
         return "category/index";
     }
@@ -47,12 +47,14 @@ public class CategoryController {
             category, Errors errors) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Category");
+            //model.addAttribute("title", "Add Category");
             return "category/add";
         }
+        else{
+
 
             categoryDao.save(category);
-        return "redirect:";
+            return "redirect:/category";
     }
 
-}
+}}

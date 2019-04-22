@@ -37,7 +37,7 @@ public class CheeseController {
     }
     // Request Path Cheese/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String add(Model model) {
+    public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
         model.addAttribute("categories", categoryDao.findAll());
@@ -45,12 +45,12 @@ public class CheeseController {
     }
     //Request path cheese/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(@ModelAttribute @Valid Cheese newCheese,
+    public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese,
                                        Errors errors, @RequestParam int categoryId, Model model) {
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Add Cheese");
-            model.addAttribute("categories", categoryDao.findAll());
+            //model.addAttribute("categories", categoryDao.findAll());
             return "cheese/add";
         }
         Category cat = categoryDao.findOne(categoryId);
@@ -78,26 +78,15 @@ public class CheeseController {
             return "redirect:";
         }
 
-    @RequestMapping(value = "category", method = RequestMethod.GET)
-    public String category(Model model, @RequestParam int id) {
-
-        Category cat = categoryDao.findOne(id);
-        List<Cheese> cheeses = cat.getCheeses();
-        model.addAttribute("cheeses", cheeses);
-        model.addAttribute("title", "Cheeses in Category: " + cat.getName());
+    @RequestMapping(value = "category/{categoryId}", method = RequestMethod.GET)
+    public String category(Model model, @RequestParam int categoryId) {
+        model.addAttribute("cheeses", categoryDao.findOne(categoryId).getCheeses());
+        model.addAttribute("title", "My Cheeses");
         return "cheese/index";
+
     }
 
 
-    @RequestMapping(value = "category/{id}", method = RequestMethod.GET)
-    public String categoryid(Model model, @PathVariable int id) {
-
-        Category cat = categoryDao.findOne(id);
-        List<Cheese> cheeses = cat.getCheeses();
-        model.addAttribute("cheeses", cheeses);
-        model.addAttribute("title", "Cheeses in Category: " + cat.getName());
-        return "cheese/index";
     }
 
 
-}
