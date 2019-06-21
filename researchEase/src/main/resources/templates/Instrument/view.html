@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/ ">
+
+<head th:replace="fragments :: head">
+</head>
+
+<body class="container">
+
+
+<h1 th:text="${title}">Default Title</h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+<table class="table">
+
+    <tr>
+        <th>Researcher</th>
+        <th>Project Description</th>
+        <th>Instrument Name</th>
+
+    </tr>
+
+    <tr th:each="instrument : ${instruments}">
+        <td th:text="${instrument.name}"></td>
+        <td th:text="${project.description}"></td>
+        <td th:text="${project.instrument}"></td>
+
+    </tr>
+
+</table>
+
+<p th:unless="${instruments} and ${instrument.size()}">No Instruments Added yet</p>
+
+
+<p><a th:href="'/instruments/add-item/' + ${id}">Add Project Instrument</a></p>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/ ">
+<head th:replace="fragments :: head">
+</head>
+<body class="container">
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${instruments} and ${instrument.size()}">No instruments added</p>
+
+<ul>
+    <li th:each="instrument : ${instruments}">
+        <a th:href="@{'/instrument/view/' + ${instrument.id}}" th:text="${instrument.name}"></a>
+    </li>
+</ul>
+
+<a th:href="@{'/instrument/add'}">Add Research Instruments</a>
+
+<hr>
+
+<nav>
+    <a href="/instrument/add">Add</a> |
+    <a href="/instrument/remove">Remove</a>
+</nav>
+
+</body>
+</html>

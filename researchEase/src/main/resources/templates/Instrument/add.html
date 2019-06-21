@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/ ">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div class="container body-content">
+
+    <form method="post" style="max-width:1000px;" th:object="${instrument}">
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
+            <label th:for="name">Instrument</label>
+            <input type="text" class="form-control" th:field="*{name}"/>
+            <span th:errors="*{name}"></span>
+        </div>
+
+        <input type="submit" value="Add Instrument"/>
+    </form>
+
+</div>
+
+</body>
+</html>
