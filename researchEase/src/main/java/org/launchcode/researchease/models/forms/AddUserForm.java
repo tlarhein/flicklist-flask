@@ -1,7 +1,7 @@
 package org.launchcode.researchease.models.forms;
 
+import org.apache.tomcat.jni.User;
 import org.launchcode.researchease.models.Project;
-import org.launchcode.researchease.models.User;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
  * Created by Tracey Cannon Liftoff 0519
  */
 
-class AddUserForm {
+public class AddUserForm {
 
     private User user;
 
@@ -64,4 +64,6 @@ class AddUserForm {
     public void setProjectId(int projectId) {
         this.projectId = projectId;
     }
+
+
 }

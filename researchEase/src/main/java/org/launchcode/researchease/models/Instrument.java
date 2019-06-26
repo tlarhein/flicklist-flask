@@ -83,4 +83,7 @@ public class Instrument {
     public void setResponses(List<Response> responses) {
         this.responses = responses;
     }
+
+    public void addItem(Project aProject) {
+    }
 }

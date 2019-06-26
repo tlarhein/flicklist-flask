@@ -1,6 +1,7 @@
 package org.launchcode.researchease.models.forms;
 
 import org.launchcode.researchease.models.Instrument;
+import org.launchcode.researchease.models.Project;
 import org.launchcode.researchease.models.Response;
 
 import javax.validation.constraints.NotNull;
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by Tracey Cannon Liftoff 0519
  */
-public class AddInstrumentItemForm {
+public class AddInstrumentForm {
 
     private Instrument instrument;
 
@@ -20,12 +21,12 @@ public class AddInstrumentItemForm {
     @NotNull
     private int responseId;
 
-    public AddInstrumentItemForm(Instrument instrument, Iterable<Response> responses) {
+    public AddInstrumentForm(Instrument instrument, Iterable<Project> responses) {
         this.instrument = instrument;
-        this.responses = responses;
+
     }
 
-    public AddInstrumentItemForm() {
+    public AddInstrumentForm() {
     }
 
     public Instrument getInstrument() {

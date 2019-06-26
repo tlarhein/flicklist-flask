@@ -1,10 +1,8 @@
 package org.launchcode.researchease.models;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import org.hibernate.validator.constraints.Email;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -22,23 +20,42 @@ public class User extends org.apache.tomcat.jni.User {
     private int id;
 
     @NotNull
-    @Size(min=9, max=50)
+    @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters")
     private String name;
 
     @OneToMany
     @JoinColumn(name = "user_id")
-    private final List<User> users = new ArrayList<>();
+    private final List<User> Users = new ArrayList<>();
 
-    public User(int id){
-        this.id = id;
+    private Integer user_id;
+    //private static Integer nextId = 1;
+
+    @Email
+    private String email;
+
+
+
+    public User() {
     }
 
-    public User(String name) {
+
+    public User(String name, Integer user_id, String email) {
         this.name = name;
+        this.user_id = user_id;
+        this.email = email;
     }
+
+    //public User() {
+
+
+    //private Integer user_id;
+    //private static Integer nextId = 1;
 
     public int getId() {
         return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -49,11 +66,27 @@ public class User extends org.apache.tomcat.jni.User {
         this.name = name;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
+//    public List<User> getUsers() {
+  //      return Users;
+//    }
 
 
     public void setProject(Project project) {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getUserId() {
+        return user_id;
+    }
+
+    public void setUserId(Integer user_id) {
+        this.user_id = user_id;
     }
 }

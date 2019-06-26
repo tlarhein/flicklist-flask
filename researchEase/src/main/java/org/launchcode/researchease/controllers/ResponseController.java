@@ -4,8 +4,8 @@ import org.launchcode.researchease.models.Instrument;
 import org.launchcode.researchease.models.Response;
 import org.launchcode.researchease.models.data.InstrumentDao;
 import org.launchcode.researchease.models.data.ResponseDao;
-import org.launchcode.researchease.models.forms.AddInstrumentItemForm;
-import org.launchcode.researchease.models.forms.AddResponseItemForm;
+import org.launchcode.researchease.models.forms.AddInstrumentForm;
+import org.launchcode.researchease.models.forms.AddResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,8 +29,8 @@ public class ResponseController {
 
 
     //public ResponseController(ResponseDao responseDao, InstrumentDao instrumentDao) {
-        //this.responseDao = responseDao;
-        //this.instrumentDao = instrumentDao;
+    //this.responseDao = responseDao;
+    //this.instrumentDao = instrumentDao;
 
     @RequestMapping(value = "")
     public String index(Model model){
@@ -84,7 +84,7 @@ public class ResponseController {
     @RequestMapping(value = "add-item/{id}", method = RequestMethod.GET)
     public String addItem(Model model, @PathVariable int id){
         Response response = responseDao.findOne(id);
-        AddResponseItemForm form = new AddResponseItemForm(response, instrumentDao.findAll());
+        AddResponseForm form = new AddResponseForm(response, instrumentDao.findAll());
         model.addAttribute("form", form);
         model.addAttribute("title", "Add a new response: " + response.getName());
         return "response/add-item";
@@ -94,7 +94,7 @@ public class ResponseController {
     @RequestMapping(value = "add-item", method = RequestMethod.POST)
     //public String addItem(Model model, @ModelAttribute @Valid AddInstrumentItemForm form, Errors errors, @RequestParam int id){
     //public String addItem(Model model, @ModelAttribute @Valid AddInstrumentItemForm form, Errors errors){
-    public String addItem(Model model, @ModelAttribute @Valid AddInstrumentItemForm form, Errors errors, @RequestParam int responseId, @RequestParam int instrumentId) {
+    public String addItem(Model model, @ModelAttribute @Valid AddInstrumentForm form, Errors errors, @RequestParam int responseId, @RequestParam int instrumentId) {
         if (errors.hasErrors()){
             //model.addAttribute("form", form);
             //model.addAttribute("title", "Add item to menu: " + form.getMenuId());

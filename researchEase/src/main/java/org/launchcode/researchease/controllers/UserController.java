@@ -24,14 +24,14 @@ public class UserController {
 
 
     //public UserController(UserDao userDao) {
-        //this.userDao = userDao;
+    //this.userDao = userDao;
 
     //Request path /user
     @RequestMapping(value = "")
     public String index(Model model) {
 
         model.addAttribute("users", userDao.findAll());
-        model.addAttribute("title", "User");
+        model.addAttribute("title", "users");
         return "user/index";
     }
     // Request Path user/add
@@ -45,7 +45,7 @@ public class UserController {
     //Request path user/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String add(Model model, @ModelAttribute @Valid User newUser,
-                                     Errors errors, @RequestParam int projectId) {
+                      Errors errors){//@RequestParam int projectId-->) {
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Add User");
@@ -53,35 +53,35 @@ public class UserController {
         }
         //Project project = projectDao.findOne(projectId);
         //newUser.setProject(project);
-        userDao.save(newUser);
+        userDao.save(new User());
         return "redirect:" + newUser.toString();
     }
 
-    @RequestMapping(value = "view/{id}", method = RequestMethod.GET)
-    public String viewUser(Model model, @PathVariable int id){
-        User user = userDao.findOne(id);
-        model.addAttribute("user", user);
-        model.addAttribute("title", "Index of Users");
-        return "user/view";
-        }
+    //@RequestMapping(value = "view/{id}", method = RequestMethod.GET)
+    //public String viewUser(Model model, @PathVariable int id){
+        //User user = userDao.findOne(id);
+        //model.addAttribute("user", user);
+        //model.addAttribute("title", "Index of Users");
+       // return "user/view";
+    }
 
     // Request path user/remove
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveUserForm(Model model) {
-        model.addAttribute("users", userDao.findAll());
-        model.addAttribute("title", "Remove User Account");
-        return "user/remove";
-    }
+    //@RequestMapping(value = "remove", method = RequestMethod.GET)
+    //public String displayRemoveUserForm(Model model) {
+        //model.addAttribute("users", userDao.findAll());
+        //model.addAttribute("title", "Remove User Account");
+        //return "user/remove";
+    //}
 
-    // Request path: cheese/remove
-    @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveUserForm(@RequestParam int[] userIds) {
-        for (int userId : userIds) {
-            userDao.delete(userId);
-        }
-        // Redirect to user/
-        return "redirect:";
-    }
+    // Request path: user/remove
+   // @RequestMapping(value = "remove", method = RequestMethod.POST)
+    //public String processRemoveUserForm(@RequestParam int[] userIds) {
+        //for (int userId : userIds) {
+           // userDao.delete(userId);
+        //}
+        //// Redirect to user/
+        //return "redirect:";
 
-}
+
+
 

@@ -1,54 +1,52 @@
 package org.launchcode.researchease.models.forms;
 
 import org.launchcode.researchease.models.Instrument;
-import org.launchcode.researchease.models.Response;
+import org.launchcode.researchease.models.Project;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Tracey Cannon Liftoff 0519
- */
-public class AddResponseItemForm {
+public class AddProjectForm {
 
-    private Response response;
+    private Project project;
 
     private Iterable<Instrument> instruments;
 
     @NotNull
-    private int responseId;
+    private int projectId;
 
     @NotNull
     private int instrumentId;
 
-    public AddResponseItemForm(Response response, Iterable<Instrument> instruments) {
-        this.response = response;
+    public AddProjectForm(Project project, Iterable<Instrument> instruments) {
+        this.project = project;
         this.instruments = instruments;
     }
 
-    public AddResponseItemForm() {
+    public AddProjectForm() {
     }
 
-    public Response getResponse() {
-        return response;
+    public  Project getProject() {
+        return project;
     }
 
     public Iterable<Instrument> getInstruments() {
         return instruments;
     }
 
-    public int getResponseId() {
-        return responseId;
+    public int getProjectId() {
+        return projectId;
     }
 
     public int getInstrumentId() {
         return instrumentId;
     }
 
-    public void setResponseId(int responseId) {
-        this.responseId = responseId;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 
     public void setInstrumentId(int instrumentId) {
         this.instrumentId = instrumentId;
     }
 }
+

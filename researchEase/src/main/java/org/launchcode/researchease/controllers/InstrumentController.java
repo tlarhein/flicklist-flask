@@ -8,6 +8,9 @@ import org.launchcode.researchease.models.Project;
 import org.launchcode.researchease.models.Instrument;
 import org.launchcode.researchease.models.data.InstrumentDao;
 import org.launchcode.researchease.models.data.ProjectDao;
+import org.launchcode.researchease.models.forms.AddInstrumentForm;
+import org.launchcode.researchease.models.forms.AddProjectForm;
+import org.launchcode.researchease.models.forms.AddResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("instrument")
+@RequestMapping(value = "instrument")
 public class InstrumentController {
 
     @Autowired //framework will create the class, the instance, and populate it
@@ -31,61 +34,77 @@ public class InstrumentController {
     @RequestMapping(value = "")
     public String index(Model model) {
     //findAll will be an iterable loop-over that will find and display all of the instruments (CrudRepository)
-        model.addAttribute("instruments", instrumentDao.findAll());
         model.addAttribute("title", "My Research Instruments");
-
+        model.addAttribute("instruments", instrumentDao.findAll());
         return "instrument/index";
     }
     // Request Path Instrument/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddInstrumentForm(Model model) {
+    public String add(Model model) {
         model.addAttribute("title", "Add Instrument");
         model.addAttribute(new Instrument());
-        model.addAttribute("projects", projectDao.findAll());
+        //model.addAttribute("projects", projectDao.findAll());
         return "instrument/add";
     }
     //Request path Instrument/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddInstrumentForm(@ModelAttribute @Valid Instrument newInstrument,
-                                       Errors errors, @RequestParam int projectId, Model model) {
+    public String add(Model model, @ModelAttribute @Valid Instrument instrument, Errors errors) {
 
-        if (errors.hasErrors()){
-            model.addAttribute("title", "Add Instrument");
+        if (errors.hasErrors()) {
+            //model.addAttribute("title", "Add Instrument");
             //model.addAttribute("projects", projectDao.findAll());
             return "instrument/add";
         }
-        Project project = projectDao.findOne(projectId);
-        newInstrument.setProject(project);
-        instrumentDao.save(newInstrument);
-        return "redirect:";
-    }
-    // Request path instrument/remove
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveInstrumentForm(Model model) {
-        model.addAttribute("instruments", instrumentDao.findAll());
-        model.addAttribute("title", "Remove Research Instrument");
-        return "instrument/remove";
-    }
 
-    // Request path: instrument/remove
-    @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveInstrumentForm(@RequestParam int[] instrumentIds) {
+        Instrument save = instrumentDao.save(instrument);
+        return "redirect:/instrument/view/" + instrument.getId();
+        }
 
-        for (int instrumentId : instrumentIds) {
-            instrumentDao.delete(instrumentId);
+
+    @RequestMapping(value = "view/{id}", method = RequestMethod.GET)
+    public String viewInstrument(Model model, @PathVariable int id, AddResponseForm projects){
+            //model.addAttribute("instrument", instrumentDao.findOne(id));
+            Instrument instrument = instrumentDao.findOne(id);
+            model.addAttribute("title", instrument.getName());
+            model.addAttribute("instruments", projects.getInstruments());
+            model.addAttribute("instrumentId", instrument.getId());
+            //model.addAttribute("title", project.getName());
+            //model.addAttribute("instrument", project.getInstrument());
+            //model.addAttribute("id", project.getId());
+            //code above replaced with code below
+            //project project = projectDao.findOne(id);
+            //model.addAttribute("project", project);
+
+            //model.addAttribute("project", projectDao.findOne(id));
+            return "instrument/view";
 
         }
-        // Redirect to instruments/
-        return "redirect:";
+
+    @RequestMapping(value = "add-item/{id}", method = RequestMethod.GET)
+    public String addItem(Model model, @PathVariable int id){
+        Instrument instrument = instrumentDao.findOne(id);
+        AddInstrumentForm form = new AddInstrumentForm(instrument, projectDao.findAll());
+        model.addAttribute("form", form);
+        model.addAttribute("title", "Add a new instrument question: " + instrument.getName());
+        return "instrument/add-item";
+
+        }
+
+    @RequestMapping(value = "add-item", method = RequestMethod.POST)
+    //public String addItem(Model model, @ModelAttribute @Valid AddInstrumentItemForm form, Errors errors, @RequestParam int id){
+    //public String addItem(Model model, @ModelAttribute @Valid AddInstrumentItemForm form, Errors errors){
+    public String addItem(Model model, @ModelAttribute @Valid AddProjectForm form, Errors errors, @RequestParam int instrumentId, @RequestParam int projectId) {
+        if (errors.hasErrors()){
+                //model.addAttribute("form", form);
+                //model.addAttribute("title", "Add item to menu: " + form.getMenuId());
+        return "instrument/add-item";
+            }
+
+        Project aProject = projectDao.findOne(form.getProjectId());
+        Instrument aInstrument = instrumentDao.findOne(form.getProjectId());
+        aInstrument.addItem(aProject);
+        instrumentDao.save(aInstrument);
+
+        return "redirect:/instrument/view/" + aInstrument.getId();
+        }
     }
-
-    @RequestMapping(value = "project/{projectId}", method = RequestMethod.GET)
-    public String project(Model model, @RequestParam int projectId) {
-        model.addAttribute("instruments", projectDao.findOne(projectId).getInstruments());
-        model.addAttribute("title", "My Research Projects and Instruments");
-        return "instrument/index";
-
-    }
-
-
-}
