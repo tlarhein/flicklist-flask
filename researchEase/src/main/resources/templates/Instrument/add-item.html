@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/
+http://www.thymeleaf.org/ ">
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+</head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+<br/>
+
+<div class="container body-content">
+
+    <form th:object="${form}" method="post" action="/instrument/add-item" style="max-width:600px;">
+        <div class="form-group">
+            <label th:for="projectId">Project</label>
+            <select name="projectId">
+                <option th:each="project : *{projects}"
+                        th:value="${project.id}"
+                        th:text="${project.name}"></option>
+            </select>
+
+            <input type="hidden" name="InstrumentId" th:value="*{instrument.id}"/>
+
+
+        </div>
+
+        <input type="submit" value="Add"/>
+
+
+    </form>
+
+</div>
+
+</body>
+</html>

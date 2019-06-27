@@ -18,25 +18,42 @@ public class Instrument {
     private int id;
 
     @NotNull
-    @Size(min=10, max=30, message = "Instrument name must not be empty, but should be at least 10 characters")
+    @Size(min=10, max=75, message = "Instrument name must be between 10 and 75 characters")
     private String instrumentName;
 
     @NotNull
-    @Size (min=4, message = "Description field must not be empty, but should be at least 4 characters")
+    @Size (min=10, message = "Description field must not be empty, but should be at least 10 characters")
     private String description;
 
-    @ManyToOne
+    @OneToMany
     private Project project;
 
     @ManyToMany(mappedBy = "instruments")
     private List<Response> responses = new ArrayList<>();
 
-    public Instrument(String name, String description) {
-        this.instrumentName = name;
+    public Instrument(Project project, String instrumentName, String description) {
+        this.project = project;
+        this.instrumentName = instrumentName;
         this.description = description;
 
     }
-    public Instrument() {}
+    public Instrument() {
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return instrumentName;
+    }
+
+    public void setName(String instrumentName) {
+        this.instrumentName = instrumentName;
+    }
 
     public Project getProject() {
         return project;
@@ -45,48 +62,15 @@ public class Instrument {
     public void setProject(Project project) {
         this.project = project;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return instrumentName;
-    }
-
-    public void setName(String name) {
-        this.instrumentName = name;
-    }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
 
-
-     }
-
-    public String getInstrumentName() {
-        return instrumentName;
-    }
-
-    public void setInstrumentName(String instrumentName) {
-        this.instrumentName = instrumentName;
-    }
-
-    public List<Response> getResponses() {
-        return responses;
-    }
-
-    public void setResponses(List<Response> responses) {
-        this.responses = responses;
-    }
+}
 
     public void addItem(Project aProject) {
     }
-
-
-    }
+}
 

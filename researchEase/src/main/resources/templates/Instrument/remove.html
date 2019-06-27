@@ -13,8 +13,8 @@
 <form method="post">
 
     <div th:each="instrument : ${instruments}" class="checkbox">
-        <input type="checkbox" name="instrumentIds" th:value="${instrument.id}" th:id="${instrument.id}"/>
-        <label th:for="${instrument.id}" th:text="${instrument.name}"></label>
+        <input type="checkbox" name="instruments" th:value="${instrument.instrumentName}" th:id="${instrument.id}"/>
+        <label th:for="${instrument.id}" th:text="${instrument.instrumentName}"></label>
         <br/>
     </div>
 

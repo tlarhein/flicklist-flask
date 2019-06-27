@@ -7,21 +7,22 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${instruments} and ${instruments.size()}">No instruments added</p>
+<p th:unless="${instruments} and ${instruments.size()}">No instruments added yet</p>
 
 <ul>
     <li th:each="instrument : ${instruments}">
-        <a th:href="@{'/instrument/view/' + ${instrument.id}}" th:text="${instrument.name}"></a>
+        <a th:href="@{'/instrument/view/' + ${instrument.id}}" th:text="${instrument.instrumentName}"></a>
     </li>
 </ul>
 
 <a th:href="@{'/instrument/add'}">Add Research Instruments</a>
 
 
-<!--<nav>
-    <a href="/instrument/add">Add</a> |
+
+<nav>
+
     <a href="/instrument/remove">Remove</a>
-</nav>-->
+</nav>
 
 </body>
 </html>

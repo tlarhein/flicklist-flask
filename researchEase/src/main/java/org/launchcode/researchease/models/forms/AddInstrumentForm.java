@@ -20,8 +20,8 @@ public class AddInstrumentForm {
     @NotNull
     private int projectId;
 
-    @NotNull
-    private int responseId;
+    //@NotNull
+   // private int responseId;
 
     public AddInstrumentForm(Instrument instrument, Iterable<Project> projects) {
         this.instrument = instrument;
@@ -57,12 +57,12 @@ public class AddInstrumentForm {
     }
 
 
-    public Integer getResponseId() {
-        return responseId;
+   // public Integer getResponseId() {
+        //return responseId;
+    //}
+
+    //public void setResponseId(Integer responseId) {
+        //this.responseId = responseId;
     }
 
-    public void setResponseId(Integer responseId) {
-        this.responseId = responseId;
-    }
-}
 

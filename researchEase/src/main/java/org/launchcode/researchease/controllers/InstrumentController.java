@@ -65,7 +65,8 @@ public class InstrumentController {
             //model.addAttribute("instrument", instrumentDao.findOne(id));
             Instrument instrument = instrumentDao.findOne(id);
             model.addAttribute("title", instrument.getName());
-            model.addAttribute("instrument", instrument.getId());
+            model.addAttribute("projects", instrument.getProject());
+            model.addAttribute("instrumentId", instrument.getId());
             //model.addAttribute("projectId", project.getId());
             //model.addAttribute("title", project.getName());
             //model.addAttribute("instrument", project.getInstrument());

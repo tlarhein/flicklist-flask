@@ -13,10 +13,10 @@
 
     <form method="post" style="max-width:600px;" th:object="${instrument}">
 
-        <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
-            <label th:for="name">Instrument</label>
-            <input type="text" class="form-control" th:field="*{name}"/>
-            <span th:errors="*{name}"></span>
+        <div class="form-group" th:classappend="${#fields.hasErrors('instrumentName') ? 'has-error' : ''}">
+            <label th:for="instrumentName">Instrument</label>
+            <input type="text" class="form-control" th:field="*{instrumentName}"/>
+            <span th:errors="*{instrumentName}"></span>
         </div>
 
         <input type="submit" value="Add Instrument"/>
