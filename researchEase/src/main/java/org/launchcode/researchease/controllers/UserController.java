@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping(value = "/")
 public class UserController {
 
     @Autowired
@@ -30,8 +30,8 @@ public class UserController {
     @RequestMapping(value = "")
     public String index(Model model) {
 
+        model.addAttribute("title", "User");
         model.addAttribute("users", userDao.findAll());
-        model.addAttribute("title", "users");
         return "user/index";
     }
     // Request Path user/add
@@ -39,12 +39,12 @@ public class UserController {
     public String add(Model model) {
         model.addAttribute("title", "Add User");
         model.addAttribute(new User());
-        model.addAttribute("projects", projectDao.findAll());
+        //model.addAttribute("projects", projectDao.findAll());
         return "user/add";
     }
     //Request path user/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model, @ModelAttribute @Valid User newUser,
+    public String add(Model model, @ModelAttribute @Valid User user,
                       Errors errors){//@RequestParam int projectId-->) {
 
         if (errors.hasErrors()){
@@ -53,17 +53,19 @@ public class UserController {
         }
         //Project project = projectDao.findOne(projectId);
         //newUser.setProject(project);
-        userDao.save(new User());
-        return "redirect:" + newUser.toString();
+        userDao.save(user);
+        return "redirect:/user/view/" + user.toString();
     }
 
-    //@RequestMapping(value = "view/{id}", method = RequestMethod.GET)
-    //public String viewUser(Model model, @PathVariable int id){
-        //User user = userDao.findOne(id);
-        //model.addAttribute("user", user);
-        //model.addAttribute("title", "Index of Users");
-       // return "user/view";
-    }
+    @RequestMapping(value = "view/{id}", method = RequestMethod.GET)
+    public String viewUser(Model model, @PathVariable int id){
+        User user = (User) userDao.findOne(id);
+        model.addAttribute("user", user);
+        //model.addAttribute("userId", ((org.launchcode.researchease.models.user) user).getId());
+        //model.addAttribute("projects", user.getProjects());
+        return "user/view";
+    }}
+
 
     // Request path user/remove
     //@RequestMapping(value = "remove", method = RequestMethod.GET)

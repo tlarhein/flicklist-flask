@@ -1,6 +1,5 @@
 package org.launchcode.researchease.models.data;
 
-import org.launchcode.researchease.models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +11,7 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface UserDao extends CrudRepository<User, Integer> {
+public interface UserDao<user> extends CrudRepository<user, Integer> {
 
-    void save(org.apache.tomcat.jni.User newUser);
+    void save(org.apache.tomcat.jni.User user);
 }

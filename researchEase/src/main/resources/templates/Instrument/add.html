@@ -11,7 +11,7 @@
 
 <div class="container body-content">
 
-    <form method="post" style="max-width:1000px;" th:object="${instrument}">
+    <form method="post" style="max-width:600px;" th:object="${instrument}">
 
         <div class="form-group" th:classappend="${#fields.hasErrors('name') ? 'has-error' : ''}">
             <label th:for="name">Instrument</label>

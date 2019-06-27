@@ -2,7 +2,6 @@ package org.launchcode.researchease.models.forms;
 
 import org.launchcode.researchease.models.Instrument;
 import org.launchcode.researchease.models.Project;
-import org.launchcode.researchease.models.Response;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,16 +12,20 @@ public class AddInstrumentForm {
 
     private Instrument instrument;
 
-    private Iterable<Response> responses;
+    private Iterable<Project> projects;
 
     @NotNull
     private int instrumentId;
 
     @NotNull
+    private int projectId;
+
+    @NotNull
     private int responseId;
 
-    public AddInstrumentForm(Instrument instrument, Iterable<Project> responses) {
+    public AddInstrumentForm(Instrument instrument, Iterable<Project> projects) {
         this.instrument = instrument;
+        this.projects = projects;
 
     }
 
@@ -33,23 +36,33 @@ public class AddInstrumentForm {
         return instrument;
     }
 
-    public Iterable<Response> getResponses() {
-        return responses;
+    public Iterable<Project> getProjects() {
+        return projects;
     }
 
     public int getInstrumentId() {
         return instrumentId;
     }
 
-    public int getResponseId() {
-        return responseId;
+    public int getProjectId() {
+        return projectId;
     }
 
     public void setInstrumentId(int instrumentId) {
         this.instrumentId = instrumentId;
     }
 
-    public void setResponseId(int responseId) {
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
+    }
+
+
+    public Integer getResponseId() {
+        return responseId;
+    }
+
+    public void setResponseId(Integer responseId) {
         this.responseId = responseId;
     }
 }
+

@@ -1,19 +1,18 @@
 package org.launchcode.researchease.models;
 
+import org.apache.tomcat.jni.User;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Tracey Cannon Liftoff 0519
  */
 
 @Entity
-public class User extends org.apache.tomcat.jni.User {
+class user extends org.apache.tomcat.jni.User {
 
     @Id //serves as the primary key
     @GeneratedValue  //tells hibernate to generate the value
@@ -23,24 +22,26 @@ public class User extends org.apache.tomcat.jni.User {
     @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters")
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private final List<User> Users = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    @JoinColumn(name = "user_id", nullable = false)
+    //private Collection<user> users = new ArrayList<user>();
+    private User user;
 
     private Integer user_id;
-    //private static Integer nextId = 1;
+    private static Integer nextId = 100;
 
     @Email
     private String email;
 
 
 
-    public User() {
+    public user() {
     }
 
 
-    public User(String name, Integer user_id, String email) {
+    public user(String name, User user, Integer user_id, String email) {
         this.name = name;
+        this.user = user;
         this.user_id = user_id;
         this.email = email;
     }

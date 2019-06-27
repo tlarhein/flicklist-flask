@@ -4,13 +4,12 @@ package org.launchcode.researchease.controllers;
  * Created by Tracey Cannon LiftOff 0519
  */
 
-import org.launchcode.researchease.models.Project;
 import org.launchcode.researchease.models.Instrument;
+import org.launchcode.researchease.models.Project;
 import org.launchcode.researchease.models.data.InstrumentDao;
 import org.launchcode.researchease.models.data.ProjectDao;
 import org.launchcode.researchease.models.forms.AddInstrumentForm;
 import org.launchcode.researchease.models.forms.AddProjectForm;
-import org.launchcode.researchease.models.forms.AddResponseForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +33,14 @@ public class InstrumentController {
     @RequestMapping(value = "")
     public String index(Model model) {
     //findAll will be an iterable loop-over that will find and display all of the instruments (CrudRepository)
-        model.addAttribute("title", "My Research Instruments");
+        model.addAttribute("title", "Research Instruments");
         model.addAttribute("instruments", instrumentDao.findAll());
         return "instrument/index";
     }
     // Request Path Instrument/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
-        model.addAttribute("title", "Add Instrument");
+        model.addAttribute("title", "Add Research Instrument");
         model.addAttribute(new Instrument());
         //model.addAttribute("projects", projectDao.findAll());
         return "instrument/add";
@@ -56,18 +55,18 @@ public class InstrumentController {
             return "instrument/add";
         }
 
-        Instrument save = instrumentDao.save(instrument);
+        instrumentDao.save(instrument);
         return "redirect:/instrument/view/" + instrument.getId();
         }
 
 
     @RequestMapping(value = "view/{id}", method = RequestMethod.GET)
-    public String viewInstrument(Model model, @PathVariable int id, AddResponseForm projects){
+    public String viewInstrument(Model model, @PathVariable int id){
             //model.addAttribute("instrument", instrumentDao.findOne(id));
             Instrument instrument = instrumentDao.findOne(id);
             model.addAttribute("title", instrument.getName());
-            model.addAttribute("instruments", projects.getInstruments());
-            model.addAttribute("instrumentId", instrument.getId());
+            model.addAttribute("instrument", instrument.getId());
+            //model.addAttribute("projectId", project.getId());
             //model.addAttribute("title", project.getName());
             //model.addAttribute("instrument", project.getInstrument());
             //model.addAttribute("id", project.getId());

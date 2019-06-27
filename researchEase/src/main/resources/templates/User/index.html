@@ -8,11 +8,12 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+
 <p th:unless="${users} and ${users.size()}">No user account established yet, please register a research account</p>
 
 <ul>
     <li th:each="user : ${users}">
-        <p th:href="@{'/user/view/' + ${user.email}}" th:text="${user.name}"></p>
+        <p th:href="@{'/user/view/' + ${user.userId} + ${user.email}}" th:text="${user.name}"></p>
     </li>
 </ul>
 
