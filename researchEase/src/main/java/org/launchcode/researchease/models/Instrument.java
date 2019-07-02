@@ -25,14 +25,16 @@ public class Instrument {
     @Size (min=10, message = "Description field must not be empty, but should be at least 10 characters")
     private String description;
 
-    @OneToMany
-    private Project project;
 
-    @ManyToMany(mappedBy = "instruments")
+    @NotNull
+    private int projectId;
+
+    @OneToMany(mappedBy = "instruments")
     private List<Response> responses = new ArrayList<>();
 
-    public Instrument(Project project, String instrumentName, String description) {
-        this.project = project;
+    public Instrument(String instrumentName, String description) {//int projectId,
+
+        //this.projectId = projectId;
         this.instrumentName = instrumentName;
         this.description = description;
 
@@ -47,20 +49,19 @@ public class Instrument {
         this.id = id;
     }
 
-    public String getName() {
+    public String getInstrumentName() {
         return instrumentName;
     }
 
-    public void setName(String instrumentName) {
+    public void setInstrumentName(String instrumentName) {
         this.instrumentName = instrumentName;
     }
 
-    public Project getProject() {
-        return project;
+    public int getProjectId() {
+        return projectId;
     }
-
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
     public String getDescription() {
         return description;
@@ -72,5 +73,7 @@ public class Instrument {
 
     public void addItem(Project aProject) {
     }
+
+    //public void addItem(Project aProject) {
 }
 

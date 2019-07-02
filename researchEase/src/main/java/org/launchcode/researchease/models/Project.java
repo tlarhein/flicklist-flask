@@ -23,7 +23,7 @@ public class Project {
 
     @OneToMany
     @JoinColumn(name = "project_id")
-    private final List<Instrument> instruments = new ArrayList<>();
+    private List<Instrument> instruments = new ArrayList<>();
 
     public Project(){}
 
@@ -48,12 +48,12 @@ public class Project {
     }
 
 
-    public String getUsers(String users) {
-        return users;
+    public String getUser(String User) {
+        return User;
     }
 
-    private Object getUsers() {
-        return getUsers();
+    //private Object getUsers() {
+        //return getUsers();
 
-}}
+}
 

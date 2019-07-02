@@ -1,18 +1,20 @@
 package org.launchcode.researchease.models;
 
-import org.apache.tomcat.jni.User;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Tracey Cannon Liftoff 0519
  */
 
 @Entity
-class user extends org.apache.tomcat.jni.User {
+public class User extends org.apache.tomcat.jni.User {//} extends org.apache.tomcat.jni.User {
+
 
     @Id //serves as the primary key
     @GeneratedValue  //tells hibernate to generate the value
@@ -22,72 +24,73 @@ class user extends org.apache.tomcat.jni.User {
     @Size(min = 5, max = 15, message = "Username must be between 5 and 15 characters")
     private String name;
 
-    @OneToMany(mappedBy = "user")
-    @JoinColumn(name = "user_id", nullable = false)
-    //private Collection<user> users = new ArrayList<user>();
-    private User user;
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Collection<User> users = new ArrayList<>();
+    private org.apache.tomcat.jni.User user; //removed the org.apache.tomcat.jni.User, by replacing it with User user;
 
-    private Integer user_id;
-    private static Integer nextId = 100;
+    @GeneratedValue
+    private int user_id;
+
+    public User(String name, int user_id, String email){
+        this.name = name;
+        this.user_id = user_id;
+        this.email = email;
+    }
+
+    public User(){}
 
     @Email
     private String email;
 
+    private Project project;
 
 
-    public user() {
+    public int getId(){
+    return id;
     }
 
-
-    public user(String name, User user, Integer user_id, String email) {
-        this.name = name;
-        this.user = user;
-        this.user_id = user_id;
-        this.email = email;
-    }
-
-    //public User() {
-
-
-    //private Integer user_id;
-    //private static Integer nextId = 1;
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 
-//    public List<User> getUsers() {
-  //      return Users;
-//    }
+    private int getUser_id(){
+        return  user_id;
 
-
-    public void setProject(Project project) {
     }
 
-    public String getEmail() {
-        return email;
+
+    //public static int getNextId() {
+       // return nextId;
+
+   // public static void setNextId(int nextId) {
+       // User.nextId = nextId;
+
+
+    //public String getUsers() {
+     //   return users;
+
+
+
+
+
+    public org.apache.tomcat.jni.User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(org.apache.tomcat.jni.User user) {
+        this.user = user;
     }
 
-    public Integer getUserId() {
-        return user_id;
+    public Project getProject(){
+        return project;
     }
 
-    public void setUserId(Integer user_id) {
-        this.user_id = user_id;
+    public void setProject(Project pro) {
+        this.project = pro;
     }
 }

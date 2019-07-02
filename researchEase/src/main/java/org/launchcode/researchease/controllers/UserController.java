@@ -1,9 +1,10 @@
 package org.launchcode.researchease.controllers;
 
 
-import org.apache.tomcat.jni.User;
+import org.launchcode.researchease.models.Project;
 import org.launchcode.researchease.models.data.ProjectDao;
 import org.launchcode.researchease.models.data.UserDao;
+import org.launchcode.researchease.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
-    private UserDao userDao;
+    private UserDao<org.apache.tomcat.jni.User> userDao;
 
     @Autowired
     private ProjectDao projectDao;
+    private User newUser;
 
 
     //public UserController(UserDao userDao) {
@@ -36,30 +38,30 @@ public class UserController {
     }
     // Request Path user/add
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String add(Model model) {
+    public String displayAddUserForm(Model model) {
         model.addAttribute("title", "Add User");
-        model.addAttribute(new User());
-        //model.addAttribute("projects", projectDao.findAll());
+        model.addAttribute(new org.apache.tomcat.jni.User());
+        model.addAttribute("projects", projectDao.findAll());
         return "user/add";
     }
     //Request path user/add
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(Model model, @ModelAttribute @Valid User user,
-                      Errors errors){//@RequestParam int projectId-->) {
+    public <projectId> String processAddUserForm(Model model, @ModelAttribute @Valid org.apache.tomcat.jni.User user,
+                                                 Errors errors, @RequestParam int projectId) {
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Add User");
             return "user/add";
         }
-        //Project project = projectDao.findOne(projectId);
-        //newUser.setProject(project);
-        userDao.save(user);
+        Project pro = projectDao.findOne(projectId);
+        newUser.setProject(pro);
+        //userDao.save(newUser);
         return "redirect:/user/view/" + user.toString();
     }
 
     @RequestMapping(value = "view/{id}", method = RequestMethod.GET)
     public String viewUser(Model model, @PathVariable int id){
-        User user = (User) userDao.findOne(id);
+        org.apache.tomcat.jni.User user = userDao.findOne(id);
         model.addAttribute("user", user);
         //model.addAttribute("userId", ((org.launchcode.researchease.models.user) user).getId());
         //model.addAttribute("projects", user.getProjects());

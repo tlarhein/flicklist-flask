@@ -64,8 +64,9 @@ public class InstrumentController {
     public String viewInstrument(Model model, @PathVariable int id){
             //model.addAttribute("instrument", instrumentDao.findOne(id));
             Instrument instrument = instrumentDao.findOne(id);
-            model.addAttribute("title", instrument.getName());
-            model.addAttribute("projects", instrument.getProject());
+            model.addAttribute("instrument", instrument);
+            model.addAttribute("title", instrument.getInstrumentName());
+            model.addAttribute("projects", instrument.getProjectId());
             model.addAttribute("instrumentId", instrument.getId());
             //model.addAttribute("projectId", project.getId());
             //model.addAttribute("title", project.getName());
@@ -85,7 +86,7 @@ public class InstrumentController {
         Instrument instrument = instrumentDao.findOne(id);
         AddInstrumentForm form = new AddInstrumentForm(instrument, projectDao.findAll());
         model.addAttribute("form", form);
-        model.addAttribute("title", "Add a new instrument question: " + instrument.getName());
+        model.addAttribute("title", "Add a new instrument question: " + instrument.getInstrumentName());
         return "instrument/add-item";
 
         }

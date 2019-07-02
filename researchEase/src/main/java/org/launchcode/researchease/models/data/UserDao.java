@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface UserDao<user> extends CrudRepository<user, Integer> {
+public interface UserDao<User> extends CrudRepository<User, Integer> {
 
-    void save(org.apache.tomcat.jni.User user);
+   //void save(org.apache.tomcat.jni.User User);
 }
