@@ -90,7 +90,7 @@ public class User extends org.apache.tomcat.jni.User {//} extends org.apache.tom
         return project;
     }
 
-    public void setProject(Project pro) {
-        this.project = pro;
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

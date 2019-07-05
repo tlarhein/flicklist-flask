@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Tracey Cannon Liftoff 0519
@@ -13,47 +12,78 @@ import java.util.List;
 @Entity
 public class Project {
 
-    @Id //serves as the primary key
-    @GeneratedValue  //tells hibernate to generate the value
-    private int id;
-
-    @NotNull
-    @Size(min=9, max=50)
+    private long id;
     private String projectName;
+    private ArrayList instruments;
+    private ArrayList user;
 
-    @OneToMany
-    @JoinColumn(name = "project_id")
-    private List<Instrument> instruments = new ArrayList<>();
 
-    public Project(){}
+    public Project() {}
 
-    public Project(String name) {
-        this.projectName = name;
+    public Project(String projectName) {
+        this.projectName = projectName;
+        //user = new ArrayList<>();
     }
 
-    public int getId() {
+    @Column
+    @Id //serves as the primary key
+    @GeneratedValue(strategy = GenerationType.AUTO)  //tells hibernate to generate the value
+    public long getId() {
         return id;
     }
 
-    public String getName() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @Column
+    @NotNull
+    @Size(min = 9, max = 50)
+    public String getProjectName() {
         return projectName;
     }
 
-    public void setName(String name) {
-        this.projectName = name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public List<Instrument> getInstruments() {
+    @OneToMany
+    @JoinColumn(name = "project_id")
+    //private User user;
+
+
+
+    //return project;
+    // }
+    //// public void setProject(Project project){
+    //  this.project = project;
+
+
+    public void setUser(ArrayList user) {
+        this.user = user;
+    }
+
+
+    public ArrayList getInstruments() {
         return instruments;
     }
 
-
-    public String getUser(String User) {
-        return User;
+    public void setInstruments(ArrayList instruments) {
+        this.instruments = instruments;
     }
 
-    //private Object getUsers() {
+    public ArrayList getUser() {
+       return user;
+    }}
+
+    //public String getUser() {
+        //return user;
+
+
+
+
+//private Object getUsers() {
         //return getUsers();
 
-}
+
 

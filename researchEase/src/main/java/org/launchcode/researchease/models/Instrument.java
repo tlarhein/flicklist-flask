@@ -27,14 +27,14 @@ public class Instrument {
 
 
     @NotNull
-    private int projectId;
+    private int project_id;
 
     @OneToMany(mappedBy = "instruments")
     private List<Response> responses = new ArrayList<>();
 
-    public Instrument(String instrumentName, String description) {//int projectId,
+    public Instrument(String instrumentName, String description, int project_id) {//int project_id,
 
-        //this.projectId = projectId;
+        this.project_id = project_id;
         this.instrumentName = instrumentName;
         this.description = description;
 
@@ -58,10 +58,10 @@ public class Instrument {
     }
 
     public int getProjectId() {
-        return projectId;
+        return project_id;
     }
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setProjectId(int project_id) {
+        this.project_id = project_id;
     }
     public String getDescription() {
         return description;
@@ -74,6 +74,6 @@ public class Instrument {
     public void addItem(Project aProject) {
     }
 
-    //public void addItem(Project aProject) {
+
 }
 
